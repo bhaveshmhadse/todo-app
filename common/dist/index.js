@@ -13,6 +13,7 @@ exports.userInput = zod_1.default.object({
 exports.todoInput = zod_1.default.object({
     title: zod_1.default.string(),
     description: zod_1.default.string(),
+    isCompleted: zod_1.default.boolean().optional(),
     user_id: zod_1.default.number(),
 });
 exports.todoUpdateInput = zod_1.default.object({

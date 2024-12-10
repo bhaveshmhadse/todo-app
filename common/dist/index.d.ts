@@ -15,15 +15,18 @@ export declare const userInput: z.ZodObject<{
 export declare const todoInput: z.ZodObject<{
     title: z.ZodString;
     description: z.ZodString;
+    isCompleted: z.ZodOptional<z.ZodBoolean>;
     user_id: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
     title: string;
     description: string;
     user_id: number;
+    isCompleted?: boolean | undefined;
 }, {
     title: string;
     description: string;
     user_id: number;
+    isCompleted?: boolean | undefined;
 }>;
 export declare const todoUpdateInput: z.ZodObject<{
     title: z.ZodOptional<z.ZodString>;
