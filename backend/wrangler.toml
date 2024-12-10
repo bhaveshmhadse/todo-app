@@ -1,0 +1,37 @@
+name = "backend"
+main = "src/index.ts"
+compatibility_date = "2024-12-09"
+
+# compatibility_flags = [ "nodejs_compat" ]
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
+
+
+[vars]
+url = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNDIzMDhkMWItZGExMS00MDVlLTg5ZWQtMzk5ZDlhYjEwMDU4IiwidGVuYW50X2lkIjoiNDVjNDg1M2QzOTg2ZGY0YWY3NmZlMzIzMmE1ZGMyYWE0NjQ5NDMzYWI1ZjQ5Y2I3MWFhZWY4OWFjZmFhZDMwOCIsImludGVybmFsX3NlY3JldCI6ImI0NjJiMDI1LTU5OGUtNGIxMS1hODkyLTUzYjcyNGEyZGIxYyJ9.3phZvvRRg7xd7ktWIUttspwW3T-Do85KdYRw17fJep0"
+directUrl = "postgresql://neondb_owner:mUwr6fqQ0ZMJ@ep-ancient-forest-a5nze2xk.us-east-2.aws.neon.tech/neondb?sslmode=require"
+JWT_SECRET = "mysecret"
+
+#DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNDIzMDhkMWItZGExMS00MDVlLTg5ZWQtMzk5ZDlhYjEwMDU4IiwidGVuYW50X2lkIjoiNDVjNDg1M2QzOTg2ZGY0YWY3NmZlMzIzMmE1ZGMyYWE0NjQ5NDMzYWI1ZjQ5Y2I3MWFhZWY4OWFjZmFhZDMwOCIsImludGVybmFsX3NlY3JldCI6ImI0NjJiMDI1LTU5OGUtNGIxMS1hODkyLTUzYjcyNGEyZGIxYyJ9.3phZvvRRg7xd7ktWIUttspwW3T-Do85KdYRw17fJep0"
+# MY_VAR = "my-variable"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
+
+# [observability]
+# enabled = true
+# head_sampling_rate = 1
