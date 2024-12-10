@@ -11,7 +11,8 @@ const Dashboard = ({}) => {
   let [todoData, settodoData] = useState<any>({ title: "", description: "", user_id: 0 });
 
   const handleFormChange = (e: any) => {
-    settodoData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // @ts-ignore
+    settodoData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleAddTodo = async () => {
