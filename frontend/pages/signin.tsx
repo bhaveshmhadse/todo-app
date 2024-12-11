@@ -45,7 +45,7 @@ const SignIn = ({}) => {
           <p className="lg:text-4xl text-center font-bold my-2">Sign In</p>
           <p className="text-center lg:text-lg text-sm">
             Don't have a account?{" "}
-            <button className="underline" onClick={() => router.push("/signin")}>
+            <button className="underline" onClick={() => router.push("/signup")}>
               Signup
             </button>
           </p>
