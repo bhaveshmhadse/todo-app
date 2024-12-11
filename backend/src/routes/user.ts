@@ -3,19 +3,41 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { sign, verify } from "hono/jwt";
 import { userInput } from "@bhavesh_mhadse/common-test";
+import { cacheData, expiry } from "../constants";
 
 export const userRouter = new Hono();
+
+const handleCache = (id: any) => {
+  let now: any = new Date();
+  let timeDifference = now - cacheData[id].ts;
+  const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+  console.log("minutes for", id, minutes);
+
+  if (minutes == expiry || Object.keys(cacheData).length > 10) {
+    console.log("Delleted from cache");
+    delete cacheData[id];
+    return;
+  }
+};
 
 userRouter.get("/getAll", async (c: any) => {
   const response: any = await verify(c.req.header("Authorization") || "", c.env.JWT_SECRET);
 
   console.log("response.id is:", response.id);
+  const { id } = response;
+  if (id in cacheData) {
+    console.log("Serving from cache", id, cacheData[id]?.userData);
+    let obj = { msg: "User Got!", data: cacheData[id]?.userData };
+    handleCache(id);
+    return c.json(obj);
+  }
+  console.log("Serving from db", id, cacheData[id]);
 
   // @ts-ignore
   const prisma = new PrismaClient({ datasourceUrl: c.env.url }).$extends(withAccelerate());
   try {
     const newUser = await prisma.user.findMany({
-      where: { id: response.id },
+      where: { id },
       select: {
         email: true,
         firstName: true,
@@ -30,7 +52,12 @@ userRouter.get("/getAll", async (c: any) => {
       },
     });
 
-    return c.json({ msg: "User Created!", data: newUser });
+    cacheData[id] = {
+      userData: newUser,
+      ts: new Date(),
+    };
+
+    return c.json({ msg: "User Got!", data: newUser });
   } catch (e) {
     c.status(403);
     return c.json({ error: "error in signup" });

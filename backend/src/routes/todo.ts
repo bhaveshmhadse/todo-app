@@ -3,14 +3,15 @@ import { verify } from "hono/jwt";
 import { Hono } from "hono";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { todoInput, todoUpdateInput } from "@bhavesh_mhadse/common-test";
+import { cacheData } from "../constants";
 
 export const todoRouter = new Hono();
 
 todoRouter.use("/*", async (c, next) => {
   try {
-    console.log('c.req.header("Authorization") is:', c.req.header("Authorization"))
+    console.log('c.req.header("Authorization") is:', c.req.header("Authorization"));
     // @ts-ignore
-    
+
     const response = await verify(c.req.header("Authorization") || "", c.env.JWT_SECRET);
     if (response.id) {
       // @ts-ignore
@@ -49,6 +50,10 @@ todoRouter.post("/", async (c: any) => {
   const newTodo = await prisma.todo.create({
     data: { title: body.title, description: body.description, user_id: c.get("user_id") || 1 },
   });
+
+  if (Number(c.get("user_id")) in cacheData) {
+    delete cacheData[Number(c.get("user_id"))];
+  }
 
   return c.json({ msg: "Todo Created!", data: newTodo });
 });
