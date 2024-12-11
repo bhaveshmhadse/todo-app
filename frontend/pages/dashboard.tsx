@@ -23,8 +23,9 @@ const Dashboard = ({}) => {
       let { data } = await axios.post(`${BACKEND_URL}api/v1/todo`, todoData, { headers: { Authorization: localStorage.getItem("token"), "Content-Type": "application/json" } });
       console.log("data is:", data);
       if (data.data != undefined) {
-        populateUserData();
         setshowNewTodo(false);
+        await populateUserData();
+        window.location.reload()
       }
     } catch (e) {}
   };
